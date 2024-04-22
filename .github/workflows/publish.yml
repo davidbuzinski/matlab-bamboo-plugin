@@ -12,10 +12,6 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Set plugin version in pom.xml
-        run: |
-          echo "MATLAB_PLUGIN_VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/[^0-9\.]*//g')" >> $GITHUB_ENV
-          atlas-mvn versions:set -DnewVersion=$MATLAB_PLUGIN_VERSION
       - name: setup Atlassian SDK
         run: |
           sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
@@ -24,6 +20,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install atlassian-plugin-sdk=8.2.8
           atlas-version
+      - name: Set plugin version in pom.xml
+        run: |
+          echo "MATLAB_PLUGIN_VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/[^0-9\.]*//g')" >> $GITHUB_ENV
+          atlas-mvn versions:set -DnewVersion=$MATLAB_PLUGIN_VERSION
       - name: Install dependencies
         run: atlas-mvn install -q
       - name: Package plugin
