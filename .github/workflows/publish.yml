@@ -22,7 +22,8 @@ jobs:
           atlas-version
       - name: Set plugin version in pom.xml
         run: |
-          echo "MATLAB_PLUGIN_VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/[^0-9\.]*//g')" >> $GITHUB_ENV
+          export MATLAB_PLUGIN_VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/[^0-9\.]*//g')
+          echo "MATLAB_PLUGIN_VERSION=$MATLAB_PLUGIN_VERSION" >> $GITHUB_ENV
           atlas-mvn versions:set -DnewVersion=$MATLAB_PLUGIN_VERSION
       - name: Install dependencies
         run: atlas-mvn install -q
