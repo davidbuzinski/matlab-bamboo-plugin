@@ -29,6 +29,6 @@ jobs:
       - name: Upload release asset
         run: |
           export PLUGIN_ARTIFACT_NAME=$(ls target | grep "matlab-bamboo-plugin-[0-9]*.[0-9]*.[0-9]*.jar")
-          gh release upload ${{ github.event.release.tag_name }} target/${{ PLUGIN_ARTIFACT_NAME }}
+          gh release upload ${{ github.event.release.tag_name }} target/$PLUGIN_ARTIFACT_NAME
         env:
           GH_TOKEN: ${{ github.token }}
