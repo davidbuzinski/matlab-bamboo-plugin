@@ -31,7 +31,6 @@ jobs:
         run: atlas-package
       - name: Upload release asset
         run: |
-          export PLUGIN_ARTIFACT_NAME=$(ls target | grep "matlab-bamboo-plugin-[0-9]*.[0-9]*.[0-9]*.jar")
           gh release upload ${{ github.event.release.tag_name }} target/matlab-bamboo-plugin-$MATLAB_PLUGIN_VERSION.jar
         env:
           GH_TOKEN: ${{ github.token }}
